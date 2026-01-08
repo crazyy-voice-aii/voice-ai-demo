@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Voice Demo</title>
+</head>
+<body style="text-align:center; font-family:Arial;">
+
+  <h1>🎤 Talk to AI</h1>
+  <p id="status">Press Start and Speak</p>
+
+  <button onclick="startAI()" style="padding:15px 25px; font-size:18px;">
+    Start Talking
+  </button>
+
+  <script>
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'hi-IN';
+
+    function startAI() {
+      document.getElementById("status").innerText = "🎧 Listening...";
+      recognition.start();
+    }
+
+    recognition.onresult = function(event) {
+      const userText = event.results[0][0].transcript;
+      document.getElementById("status").innerText = "You said: " + userText;
+
+      const reply = "Hello, main AI voice assistant hoon";
+      const speech = new SpeechSynthesisUtterance(reply);
+      speech.lang = 'hi-IN';
+      window.speechSynthesis.speak(speech);
+    };
+  </script>
+
+</body>
+</html>
